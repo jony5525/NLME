@@ -1,2 +1,2 @@
 # NLME
-Objective functions for parmeter estimation in Non Linear Mixed Effect Models
+Objective functions that can be used for parameter estimation in Non Linear Mixed Effect Models
