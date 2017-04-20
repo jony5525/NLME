@@ -9,7 +9,9 @@ Joakim Nyberg (joakim.nyberg@farmbio.uu.se) and Sebastian Ueckert (sebastian.uec
 Likelihoods are assuming that parameters are described as point estimates from distributions (e.g. similar to the NONMEM software) as opposed to distributions with link functions (e.g. similar to the MONOLIX software).
 
 References:
-M Davidian, D Giltinan: Nonlinear Models for Repeated Measurements data, Chapman and Hall/CRC, 1989.
-Wang, Y. J. Derivations of various NONMEM estimation methods Pharmacokinet Pharmacodyn (2007) 34: 575. doi:10.1007/s10928-007-9060-6.
-M Lavielle, Mixed Effects Models for the Population Approach: Models, Tasks, Methods and Tools uly 14, 2014 by Chapman and Hall/CRC
+* M Davidian, D Giltinan: Nonlinear Models for Repeated Measurements data, Chapman and Hall/CRC, 1989.
+
+* Wang, Y. J. Derivations of various NONMEM estimation methods Pharmacokinet Pharmacodyn (2007) 34: 575. doi:10.1007/s10928-007-9060-6.
+
+* M Lavielle, Mixed Effects Models for the Population Approach: Models, Tasks, Methods and Tools uly 14, 2014 by Chapman and Hall/CRC
 
