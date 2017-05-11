@@ -3,8 +3,8 @@ Objective functions that can be used for parameter estimation in Non Linear Mixe
 
 Examples based on code from Joakim Nyberg joakim.nyberg@farmbio.uu.se
 The different OFV approximations are written by Joakim Nyberg but some of the code;
-(EBE estimation, LinMatrixL, LinMatrixH, V) comes from the PopED sofware written by Andrew Hooker (andrew.hooker@farmbio.uu.se),
-Joakim Nyberg (joakim.nyberg@farmbio.uu.se) and Sebastian Ueckert (sebastian.ueckert@farmbio.uu.se)
+(EBE estimation, LinMatrixL, LinMatrixH, V) comes from the PopED software written by Andrew Hooker (andrew.hooker@farmbio.uu.se),
+Joakim Nyberg (joakim.nyberg@farmbio.uu.se) and Sebastian Ueckert (sebastian.ueckert@farmbio.uu.se).
 
 Likelihoods are assuming that parameters are described as point estimates from distributions (e.g. similar to the NONMEM software) as opposed to distributions with link functions (e.g. similar to the MONOLIX software).
 
