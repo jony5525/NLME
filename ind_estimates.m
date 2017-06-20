@@ -10,15 +10,16 @@ if (bInter==false && bUDDLike==false) %Calculate only one variance for all sampl
     eps = zeros(size(tdata,1),size(sigma,2));
     h = LinMatrixH(model,errormodel,tdata,cdata,theta,zeros(size(eta_i)),eps);
     res_var = diag(diag(h*sigma*h'));
-    lC=chol(res_var,'upper')\eye(length(res_var)); %Calculate cholesky factorization
     det_res_var = det(res_var);
+    lC=chol(res_var,'upper')\eye(length(res_var)); %Calculate cholesky factorization
 else
     lC = 0;
     det_res_var = 0;
 end
 
-eta = fminsearch(@(eta_z) min_function(model,errormodel,tdata,cdata,theta,omega,sigma,bInter,bUDDLike,c1,c2,c3,lC,det_res_var,eta_z),eta_i,optimset('TolX',1e-6,'TolFun',1e-6,'MaxFunEvals',1000));
-
+%eta = fminsearch(@(eta_z) min_function(model,errormodel,tdata,cdata,theta,omega,sigma,bInter,bUDDLike,c1,c2,c3,lC,det_res_var,eta_z),eta_i,optimset('TolX',1e-8,'TolFun',1e-8,'MaxFunEvals',50000,'MaxIter',10000));
+eta = fminunc(@(eta_z) min_function(model,errormodel,tdata,cdata,theta,omega,sigma,bInter,bUDDLike,c1,c2,c3,lC,det_res_var,eta_z),eta_i,optimset('TolX',1E-10,'TolFun',1E-10,'MaxFunEvals',10000,'Display','Off','LargeScale','off'));
+%disp(eta)
 end
 
 %This is the function that should be minimized, w.r.t eta
