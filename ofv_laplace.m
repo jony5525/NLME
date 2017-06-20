@@ -7,7 +7,7 @@ bAnalytic = false;
 
 if (~bInter && ~bUDDLike)    
     eps = zeros(size(tdata,1),size(sigma,2));
-    h = LinMatrixH(model,errmodel,tdata,cdata,theta,zeros(size(eta_i)),eps);
+    h = LinMatrixH(model,errmodel,tdata,cdata,theta,zeros(size(eta)),eps);
     res_var = diag(diag(h*sigma*h'));
     lC=chol(res_var,'upper')\eye(length(res_var)); %Calculate cholesky factorization
     det_res_var = det(res_var);
