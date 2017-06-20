@@ -59,19 +59,19 @@ tdata = csvread('sim_data_model1.csv');
 errmodel=@errmodel1;
 model=@model1;
 
-ofv_sum= ofv(model,errmodel,etype,tdata,cdata,theta,omega,sigma,size(omega,1),bInter,bUDDLike,bReport);
-fprintf('The -2ll for model 1 with FO is: %3.15f\n',ofv_sum);
-ofv_sum= ofv(model,errmodel,etype,tdata,cdata,theta,omega,sigma,size(omega,1),true,bUDDLike,bReport);
-fprintf('The -2ll for model 1 with FO with interaction is: %3.15f\n',ofv_sum);
-etype=1;
-ofv_sum= ofv(model,errmodel,etype,tdata,cdata,theta,omega,sigma,size(omega,1),bInter,bUDDLike,bReport);
-fprintf('The -2ll for model 1 with FOCE is: %3.15f\n',ofv_sum);
-etype=2;
-ofv_sum= ofv(model,errmodel,etype,tdata,cdata,theta,omega,sigma,size(omega,1),true,bUDDLike,bReport);
-fprintf('The -2ll for model 1 with FOCE with interaction is: %3.15f\n',ofv_sum);
-etype=3;
-ofv_sum= ofv(model,errmodel,etype,tdata,cdata,theta,omega,sigma,size(omega,1),true,bUDDLike,bReport);
-fprintf('The -2ll for model 1 with Laplace with interaction is: %3.15f\n',ofv_sum);
+% ofv_sum= ofv(model,errmodel,etype,tdata,cdata,theta,omega,sigma,size(omega,1),bInter,bUDDLike,bReport);
+% fprintf('The -2ll for model 1 with FO is: %3.15f\n',ofv_sum);
+% ofv_sum= ofv(model,errmodel,etype,tdata,cdata,theta,omega,sigma,size(omega,1),true,bUDDLike,bReport);
+% fprintf('The -2ll for model 1 with FO with interaction is: %3.15f\n',ofv_sum);
+% etype=1;
+% ofv_sum= ofv(model,errmodel,etype,tdata,cdata,theta,omega,sigma,size(omega,1),bInter,bUDDLike,bReport);
+% fprintf('The -2ll for model 1 with FOCE is: %3.15f\n',ofv_sum);
+% etype=2;
+% ofv_sum= ofv(model,errmodel,etype,tdata,cdata,theta,omega,sigma,size(omega,1),true,bUDDLike,bReport);
+% fprintf('The -2ll for model 1 with FOCE with interaction is: %3.15f\n',ofv_sum);
+% etype=3;
+% ofv_sum= ofv(model,errmodel,etype,tdata,cdata,theta,omega,sigma,size(omega,1),true,bUDDLike,bReport);
+% fprintf('The -2ll for model 1 with Laplace with interaction is: %3.15f\n',ofv_sum);
 
 %%%%% NONMEM OUTPUT (-2LL)
 %%%%% FO:    56.474912258258158
@@ -114,6 +114,7 @@ fprintf('The -2ll for model 2 with FO with interaction is: %3.15f\n',ofv_sum);
 etype=1;
 ofv_sum= ofv(model,errmodel,etype,tdata,cdata,theta,omega,sigma,size(omega,2),false,bUDDLike,bReport);
 fprintf('The -2ll for model 2 with FOCE is: %3.15f\n',ofv_sum);
+
 etype=2;
 ofv_sum= ofv(model,errmodel,etype,tdata,cdata,theta,omega,sigma,size(omega,2),true,bUDDLike,bReport);
 fprintf('The -2ll for model 2 with FOCE with interaction is: %3.15f\n',ofv_sum);
@@ -161,3 +162,73 @@ fprintf('The -2ll for model 3 with LAPLACE with interaction is: %3.15f\n',ofv_su
 
 %%%%% NONMEM OUTPUT (-2LL)
 %%%%% LAPLI: 3809.8059929876335
+
+%%%%% Fourth example evaluation one compartment continuous data model with FO, FOI, FOCE, FOCEI, LAPL and LAPI and inter occasion variability
+%%%%% 11 parameters; 8 typical values, THETAs, 8
+%%%%% Inter-Individual-Variance (IIV) OMEGA with 3 covariance and two
+%%%%% Inter-Occasion-Variance (IOV) OMEGA with 3 covariance and
+%%%%% residual variances (SIGMA)
+
+%User defined individual likelihood
+bUDDLike=false;
+
+%Fixed effects
+theta = [4.00000E-01 3.00000E-01 2.30000E+01 1.90000E+00 -4.80000E+00 1.03000E+02 -2.70000E+01 1.40000E+00];
+  
+%Random IIV effect
+omega = [0.2 0.1 0
+         0.1 0.2 0
+         0   0   1.2];
+
+%Random IOV effect
+gamma = [0.2 0.1 0
+         0.1 0.2 0
+         0   0   0.5];
+
+omeganew = blkdiag(omega,gamma,gamma); %Make a big omega-matrix with 2 occasions    
+     
+
+%Residual random effect
+sigma = [0.1];
+
+%cdata = constant dependent datafile for all individuals
+cdata = ones(64,1).*0;
+%Read in time-dependent data for all individuals,
+tdata = csvread('praz21_sim_matlab1.csv');
+
+errmodel=@errmodel4;
+model=@model4;
+
+etype=0;
+ofv_sum= ofv(model,errmodel,etype,tdata,cdata,theta,omeganew,sigma,size(omeganew,2),false,bUDDLike,bReport);
+fprintf('The -2ll for model 2 with FO is: %3.15f\n',ofv_sum);
+
+etype=0;
+ofv_sum= ofv(model,errmodel,etype,tdata,cdata,theta,omeganew,sigma,size(omeganew,2),true,bUDDLike,bReport);
+fprintf('The -2ll for model 2 with FO with interaction is: %3.15f\n',ofv_sum);
+
+etype=1;
+ofv_sum= ofv(model,errmodel,etype,tdata,cdata,theta,omeganew,sigma,size(omega,2),false,bUDDLike,bReport);
+fprintf('The -2ll for model 4 with FOCE is: %3.15f\n',ofv_sum);
+% 
+etype=2;
+ofv_sum= ofv(model,errmodel,etype,tdata,cdata,theta,omeganew,sigma,size(omeganew,2),true,bUDDLike,bReport);
+fprintf('The -2ll for model 4 with FOCE with interaction is: %3.15f\n',ofv_sum);
+
+etype=3;
+ofv_sum= ofv(model,errmodel,etype,tdata,cdata,theta,omeganew,sigma,size(omeganew,2),false,bUDDLike,bReport);
+fprintf('The -2ll for model 4 with LAPLACE WITHOUT interaction is: %3.15f\n',ofv_sum);
+
+etype=3;
+ofv_sum= ofv(model,errmodel,etype,tdata,cdata,theta,omeganew,sigma,size(omeganew,2),true,bUDDLike,bReport);
+fprintf('The -2ll for model 4 with LAPLACE with interaction is: %3.15f\n',ofv_sum);
+
+%%%%% NONMEM OUTPUT (-2LL)
+%%%%% FO:    3934.9931582677168
+%%%%% FOI:   NA
+%%%%% FOCE:  3074.1192663684797
+%%%%% FOCEI: 949.85682322100604
+%%%%% LAPL:  3120.3839170232632
+%%%%% LAPLI: 969.53263286478852 (MCETA=100), ~1018.0647 without MCETA
+
+
